@@ -3,4 +3,8 @@
 - make sure you have the right API key
 - navigate to the project root, `sudo npm install`
 - `npm start`
-## my fork
+## Binary Search Tree (maps numbers to colors) animation
+- Need to hardcode the tree for now
+- Each node should be colored and numbered
+- There will also be a sign behind the tree showing the number we're looking for, and when the red sphere lands on it, we will show the color it found
+- Possibly show deletion?
