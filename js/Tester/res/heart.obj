@@ -1,5 +1,6 @@
 # This file uses centimeters as units for non-parametric coordinates.
 
+mtllib 3d_heart.mtl
 g default
 v 0.013314 0.008044 0.060456
 v -0.029901 -0.056546 0.107908

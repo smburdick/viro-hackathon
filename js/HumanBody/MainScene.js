@@ -14,6 +14,7 @@ import {
   ViroSkyBox,
   ViroNode,
   ViroMaterials,
+  ViroSphere,
 } from 'react-viro';
 
 var MainScene = React.createClass({
@@ -37,11 +38,19 @@ var MainScene = React.createClass({
 
         <ViroAmbientLight color="#aaaaaa" />
 
-         <ViroNode position={[0, 0, -1]} >
-            <Viro3DObject source={require('./res/heart.obj')}
-                       materials={["heart"]} />
+
+       <ViroNode position={[0,0,-2]} width={.5} height={.5} length={.5} scale={[0.1,0.1,0.1]}>
+        <Viro3DObject source={require('./res/sphere.obj')}
+          materials={["sphere"]}
+          />
+        <Viro3DObject position={[0,0,-1]} width={.5} height={.5} length={.5} scale={[0.1,0.1,0.1]} source={require('./res/cylinder.obj')}
+          materials={["sphere"]}
+        />
+        <Viro3DObject position={[0,0,-10]} width={.5} height={.5} length={.5} scale={[0.1,0.1,0.1]} source={require('./res/cylinder.obj')}
+          materials={["sphere"]}
+        />
        </ViroNode>
-       <ViroText text="Heart" position={[0.0, 0.0, -3]} style={styles.textStyle}
+       <ViroText text="Sphere" position={[0.0, 0.0, -3]} style={styles.textStyle}
                  transformBehaviors={["billboardY"]}/>
      </ViroScene>
     );
@@ -56,8 +65,17 @@ var materials = ViroMaterials.createMaterials({
      writesToDepthBuffer: true,
      readsFromDepthBuffer: true,
    },
+   sphere: {
+     lightingModel: "Blinn",
+     writesToDepthBuffer: true,
+     readsFromDepthBuffer: true,
+   }
 });
-
+/*   <ViroNode position={[0, 0, -1]} >
+      <Viro3DObject source={require('./res/heart.obj')}
+                 materials={["heart"]}
+                 />
+ </ViroNode>*/
 var styles = StyleSheet.create({
   textStyle: {
     fontFamily: 'HelveticaNeue-Medium',
