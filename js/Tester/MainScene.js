@@ -51,6 +51,7 @@ var MainScene = React.createClass({
        <ViroAnimatedComponent animation={this.state.currentAnimation} run={true} onFinish={this._switchAnimation} >
          <Viro3DObject
            source={require("./res/btns_3D/btn_sphere.obj")}
+           materials='sphere'
            highAccuracyGaze={true}
            position={[0, 0, -3]}
            scale={[0.05, 0.05, 0.05]}/>
@@ -141,6 +142,7 @@ var tree = {
 ViroMaterials.createMaterials({
   sphere: {
     lightingModel: "Blinn",
+    diffuseColor: "rgb(255,0,0)"
   }
 });
 
@@ -154,7 +156,7 @@ ViroAnimations.registerAnimations({
   moveRight:{properties:{positionX: "+="+xShift, positionY: "-="+yShift}, duration: shiftDuration},
   moveLeft:{properties:{positionX: "-="+xShift, positionY: "-="+yShift}, duration: shiftDuration},
   freeze:{properties:{positionX: "+=0"}, duration: freezeDuration},
-  initDelay:{properties:{positionX: "+=0"}, duration: freezeDuration*8}
+  initDelay:{properties:{positionX: "+=0"}, duration: freezeDuration*16}
 }); // need to generate this array on the fly
 
 
