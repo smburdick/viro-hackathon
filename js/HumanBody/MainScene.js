@@ -76,12 +76,6 @@ var materials = ViroMaterials.createMaterials({
                  materials={["heart"]}
                  />
  </ViroNode>*/
-var styles = StyleSheet.create({
-  textStyle: {
-    fontFamily: 'HelveticaNeue-Medium',
-    fontSize: 18,
-    color: '#FFFFFF',
-  },
-});
+
 
 module.exports = MainScene;

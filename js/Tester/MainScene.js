@@ -18,6 +18,7 @@ import {
   Viro360Image,
   ViroAnimations,
   ViroAnimatedComponent,
+  ViroSurface,
 } from 'react-viro';
 
 var ml = 'moveLeft';
@@ -34,6 +35,7 @@ var MainScene = React.createClass({
   getInitialState() {
     return {
        'currentAnimation': 'initDelay'
+    //   , 'signColor' :  // TODO: switch sign color upon reaching end
     };
   },
   render: function() {
@@ -48,13 +50,20 @@ var MainScene = React.createClass({
        <ViroCamera position={[0, 0, 0]} active={true} focalPoint={[0, 0, -3]} />
        <ViroAmbientLight color="#aaaaaa"/>
        {this._buildTree()}
+       <ViroSurface
+        position={[-1, 0, -3]}
+        height={0.5}
+        width={0.5}
+        materials={["surfaceMaterial"]} />
        <ViroAnimatedComponent animation={this.state.currentAnimation} run={true} onFinish={this._switchAnimation}>
+        <ViroNode>
          <Viro3DObject
            source={require("./res/btns_3D/btn_sphere.obj")}
-           materials='sphere'
+           materials='traverseSphere'
            highAccuracyGaze={true}
            position={[0, 0, -3]}
            scale={[0.07, 0.07, 0.07]}/>
+        </ViroNode>
        </ViroAnimatedComponent>
      </ViroScene>
     );
@@ -62,6 +71,12 @@ var MainScene = React.createClass({
   _switchAnimation() {
   //  viroanimations.registeranimation(animation+animationIndex: )
     if(++animationsIndex >= animationsArray.length) { // show the result
+      ViroMaterials.createMaterials({
+        surfaceMaterial: {
+          lightingModel: "Blinn",
+          diffuseColor: "rgb(0,255,0)"
+        }
+      });
       return;
     }
   //  this.setState({'currentAnimation': animationsArray[animationsIndex]});
@@ -82,7 +97,9 @@ var MainScene = React.createClass({
         source={require("./res/btns_3D/btn_sphere.obj")}
         highAccuracyGaze={true}
         position={[0, 0, 0]}
-        scale={[0.05, 0.05, 0.05]}/>
+        scale={[0.05, 0.05, 0.05]}
+        />
+      <ViroText text="5" position={[0,0,0]} scale={[0.5, 0.5, 0.5]} style={styles.numberTextStyle} />
       <Viro3DObject
         source={require("./res/btns_3D/btn_capsule.obj")}
         position={[-0.5, -0.5, 0]}
@@ -98,7 +115,10 @@ var MainScene = React.createClass({
             source={require("./res/btns_3D/btn_sphere.obj")}
             highAccuracyGaze={true}
             position={[0, 0, 0]}
-            scale={[0.05, 0.05, 0.05]}/>
+            scale={[0.05, 0.05, 0.05]}
+            materials='blueSphere'
+            />
+          <ViroText text="3" position={[0,0,0]} scale={[0.5, 0.5, 0.5]} style={styles.numberTextStyle} />
           <Viro3DObject
             source={require("./res/btns_3D/btn_capsule.obj")}
             position={[-0.5, -0.5, 0]}
@@ -142,15 +162,35 @@ var tree = {
 }*/
 
 ViroMaterials.createMaterials({
-  sphere: {
+  traverseSphere: {
     lightingModel: "Blinn",
     diffuseColor: "rgb(255,0,0)"
+  },
+  blueSphere: {
+    lightingModel: "Blinn",
+    diffuseColor: "rgb(0,0,255)"
+  },
+  greenSphere: {
+    lightingModel: "Blinn",
+    diffuseColor: "rgb(0,255,0)"
+  },
+  blackSphere: {
+    lightingModel: "Blinn",
+    diffuseColor: "rgb(0,0,0)"
+  },
+  whiteSphere: {
+    lightingModel: "Blinn",
+    diffuseColor: "rgb(255,255,255)"
+  },
+  surfaceMaterial: {
+    lightingModel: "Blinn",
+    diffuseColor: "rgb(255,255,255)"
   }
 });
 
 var xShift = 1;
 var yShift = 1;
-var shiftDuration = 2000;
+var shiftDuration = 2200;
 var freezeDuration = 100;
 
 // the two movement actions the sphere can take down the binary tree
@@ -181,3 +221,11 @@ function binarySearch(tree, key) {
     return "";
   }
 }*/
+
+var styles = StyleSheet.create({
+  numberTextStyle: {
+    fontFamily: 'HelveticaNeue-Medium',
+    fontSize: 40,
+    color: '#000000',
+  },
+})
