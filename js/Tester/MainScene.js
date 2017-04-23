@@ -48,20 +48,22 @@ var MainScene = React.createClass({
        <ViroCamera position={[0, 0, 0]} active={true} focalPoint={[0, 0, -3]} />
        <ViroAmbientLight color="#aaaaaa"/>
        {this._buildTree()}
-       <ViroAnimatedComponent animation={this.state.currentAnimation} run={true} onFinish={this._switchAnimation} >
+       <ViroAnimatedComponent animation={this.state.currentAnimation} run={true} onFinish={this._switchAnimation}>
          <Viro3DObject
            source={require("./res/btns_3D/btn_sphere.obj")}
            materials='sphere'
            highAccuracyGaze={true}
            position={[0, 0, -3]}
-           scale={[0.05, 0.05, 0.05]}/>
+           scale={[0.07, 0.07, 0.07]}/>
        </ViroAnimatedComponent>
      </ViroScene>
     );
   },
   _switchAnimation() {
   //  viroanimations.registeranimation(animation+animationIndex: )
-    if(++animationsIndex >= animationsArray.length) return;
+    if(++animationsIndex >= animationsArray.length) { // show the result
+      return;
+    }
   //  this.setState({'currentAnimation': animationsArray[animationsIndex]});
     var moveStr = animationsArray[animationsIndex];
     if(moveStr == 'moveLeft') {
